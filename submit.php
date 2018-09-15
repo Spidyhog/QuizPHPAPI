@@ -29,12 +29,11 @@
           }
           if(isset($ans)){
                 $ans=strtolower($ans);
-                if($ans == strtolower($_POST['answer'])){
-                  $id = $data->id;
- $response_save = $mysql->prepare("INSERT into responses VALUES (NULL,?,?,?,?)");
+                 $response_save = $mysql->prepare("INSERT into responses VALUES (NULL,?,?,?,?)");
                    $response_save->bind_param('iiss', $data->id,$score,strtolower($_POST['answer']),date('Y-m-d H:i:s'));
                    $response_save->execute();
-
+                if($ans == strtolower($_POST['answer'])){
+                  $id = $data->id;
                   $count_query = $mysql->query("SELECT COUNT(*) as count  FROM questions");
                   $count = $count_query->fetch_assoc()["count"];
                   
