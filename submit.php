@@ -39,6 +39,9 @@
                     $average_time = $average_time + ( $date_diff/$count);
                   
                 	$res_query=$mysql->query("update  users set score = score+1,last_ques_time = '$date',average = '$average_time'   where id='$id'") or die(json_encode(["success"=> false,"message" => "500 - Internal Error"]));
+                   $response_save = $mysql->prepare("INSERT into responses VALUES (NULL,?,?,?)");
+                   $response_save->bind_param('iis', $data->id,$score,strtolower($_POST['answer']));
+                   $response_save->execute();
                 	   echo json_encode(["success"=> true,"message" => "Correct Answer"]);
                }else
                 	echo json_encode(["success"=> false,"message" => "Wrong Answer","ques_id"=> $score]);
