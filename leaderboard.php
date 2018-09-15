@@ -5,12 +5,9 @@
 	require_once('db.php');
 	require_once('secrets.php');
 	$data = null;
-  	if(isset($_SERVER['HTTP_AUTHORIZATION'])){
-     try{
-    	$data = json_decode(JWT::decode($_SERVER['HTTP_AUTHORIZATION'],$jwt_secret));
-  	    }catch(Exception $e){
-  	        
-  	    }
+  	$headers = apache_request_headers();
+  	if(isset($headers['Authorization'])){
+    	$data = json_decode(JWT::decode($headers['Authorization'],$jwt_secret));
     }
     if (!isset($data) && $data == null ) {
     	echo json_encode(["success"=>null,"message"=>"UnAuthorised Access"]);
