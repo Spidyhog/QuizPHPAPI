@@ -41,7 +41,7 @@
                 	$res_query=$mysql->query("update  users set score = score+1,last_ques_time = '$date',average = '$average_time'   where id='$id'") or die(json_encode(["success"=> false,"message" => "500 - Internal Error"]));
                 	   echo json_encode(["success"=> true,"message" => "Correct Answer"]);
                }else
-                	echo json_encode(["success"=> false,"message" => "Wrong Answer"]);
+                	echo json_encode(["success"=> false,"message" => "Wrong Answer","ques_id"=> $score]);
           }else
               echo json_encode(["success"=> true,"message" => "You Made It Till End"]);
 
