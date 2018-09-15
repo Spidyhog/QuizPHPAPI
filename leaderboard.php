@@ -7,7 +7,10 @@
 	$data = null;
   	$headers = apache_request_headers();
   	if(isset($headers['Authorization'])){
-    	$data = json_decode(JWT::decode($headers['Authorization'],$jwt_secret));
+    	try{
+      $data = json_decode(JWT::decode($headers['Authorization'],$jwt_secret));
+      }catch(Exception $e){
+      }
     }
     if (!isset($data) && $data == null ) {
     	echo json_encode(["success"=>null,"message"=>"UnAuthorised Access"]);
